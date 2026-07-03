@@ -25,7 +25,7 @@ async def invest_donations_to_projects(
         donation: Объект пожертвования для распределения
     """
     query = select(CharityProject).where(
-        CharityProject.fully_invested == False
+        CharityProject.fully_invested is False
     ).order_by(CharityProject.create_date.asc())
 
     result = await session.execute(query)
@@ -88,7 +88,7 @@ async def invest_free_donations_to_project(
         project: Объект проекта для инвестирования
     """
     query = select(Donation).where(
-        Donation.fully_invested == False
+        Donation.fully_invested is False
     ).order_by(Donation.create_date.asc())
 
     result = await session.execute(query)
