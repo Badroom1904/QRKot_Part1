@@ -1,9 +1,9 @@
 import asyncio
+
 from sqlalchemy.ext.asyncio import create_async_engine
 
 from app.core.config import settings
 from app.core.db import Base
-from app.models import CharityProject, Donation
 
 
 async def init_database():

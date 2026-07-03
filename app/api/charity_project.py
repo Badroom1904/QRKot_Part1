@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from datetime import datetime
+
 from app.core.db import get_async_session
 from app.models import CharityProject
 from app.schemas import (
@@ -51,7 +52,7 @@ async def create_project(
     )
     result = await session.execute(query)
     existing_project = result.scalar_one_or_none()
-    
+
     if existing_project:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -85,7 +86,7 @@ async def update_project(
     query = select(CharityProject).where(CharityProject.id == project_id)
     result = await session.execute(query)
     project = result.scalar_one_or_none()
-    
+
     if not project:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -105,7 +106,7 @@ async def update_project(
         )
         result = await session.execute(query)
         existing_project = result.scalar_one_or_none()
-        
+
         if existing_project:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -116,7 +117,8 @@ async def update_project(
         if project_in.full_amount < project.invested_amount:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Новая требуемая сумма не может быть меньше уже инвестированной",
+                detail="Новая требуемая сумма не может быть меньше"
+                "уже инвестированной",
             )
         if project_in.full_amount == project.invested_amount:
             project.fully_invested = True

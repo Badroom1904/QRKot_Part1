@@ -1,7 +1,5 @@
 from datetime import datetime
-from typing import Optional
-
-from sqlalchemy import Column, DateTime, Integer, String, Text, Boolean
+from sqlalchemy import Column, DateTime, Integer, Text, Boolean
 
 from app.core.db import Base
 

@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 
 from sqlalchemy import Column, DateTime, Integer, String, Text, Boolean
 from sqlalchemy.orm import validates

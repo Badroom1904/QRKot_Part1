@@ -1,7 +1,6 @@
-from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, Field, validator, Extra
+from pydantic import BaseModel, Field, validator
 
 from app.schemas.base import ProjectBase, BaseModelMixin
 
@@ -19,7 +18,7 @@ class CharityProjectCreate(ProjectBase):
 
 class CharityProjectUpdate(BaseModel):
     """Схема для обновления проекта."""
-    
+
     name: Optional[str] = Field(None, min_length=5, max_length=100)
     description: Optional[str] = Field(None, min_length=10)
     full_amount: Optional[int] = Field(None, gt=0)

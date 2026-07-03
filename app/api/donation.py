@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
@@ -65,7 +65,7 @@ async def get_my_donations(
 ) -> List[DonationUserDB]:
     """
     Получить пожертвования текущего пользователя.
-    
+
     В текущей версии возвращает все пожертвования, так как
     аутентификация ещё не реализована.
     """
