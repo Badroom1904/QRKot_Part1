@@ -3,6 +3,7 @@ import os
 from pydantic_settings import BaseSettings
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 
@@ -18,9 +19,9 @@ class Settings(BaseSettings):
 
     DEBUG: bool = os.getenv('DEBUG', 'False').lower() == 'true'
 
-
     class Config:
         env_file = '.env'
         case_sensitive = True
+
 
 settings = Settings()
