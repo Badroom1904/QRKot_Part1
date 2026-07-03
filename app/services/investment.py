@@ -54,9 +54,11 @@ async def invest_donations_to_projects(
             project.close_date = datetime.now()
         else:
             invest_amount = remaining_amount
-            project.invested_amount = (project.invested_amount or 0) + invest_amount
+            project.invested_amount = (
+                project.invested_amount or 0) + invest_amount
 
-        donation.invested_amount = (donation.invested_amount or 0) + invest_amount
+        donation.invested_amount = (
+            donation.invested_amount or 0) + invest_amount
         remaining_amount -= invest_amount
 
         if donation.invested_amount >= donation.full_amount:
@@ -117,9 +119,11 @@ async def invest_free_donations_to_project(
             project.close_date = datetime.now()
         else:
             invest_amount = remaining_donation_amount
-            project.invested_amount = (project.invested_amount or 0) + invest_amount
+            project.invested_amount = (
+                project.invested_amount or 0) + invest_amount
 
-        donation.invested_amount = (donation.invested_amount or 0) + invest_amount
+        donation.invested_amount = (
+            donation.invested_amount or 0) + invest_amount
         needed_amount -= invest_amount
 
         if donation.invested_amount >= donation.full_amount:
