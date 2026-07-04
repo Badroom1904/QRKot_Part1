@@ -13,7 +13,7 @@ class DonationCreate(DonationBase):
     full_amount: int = Field(..., gt=0)
 
     class Config:
-        extra = "forbid"  # Запрещаем лишние поля
+        extra = "forbid"
 
     @validator('full_amount')
     def validate_full_amount(cls, value):
