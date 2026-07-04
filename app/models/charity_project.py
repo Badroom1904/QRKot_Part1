@@ -23,26 +23,49 @@ class CharityProject(Base):
     @validates('name')
     def validate_name(self, key, value):
         """Валидация названия проекта (от 5 до 100 символов)."""
-        if not value or not (5 <= len(value) <= 100):
+        if value is None:
+            raise ValueError('Название проекта не может быть пустым')
+
+        stripped_value = value.strip()
+
+        if not stripped_value:
+            raise ValueError('Название проекта не может состоять из пробелов')
+
+        if not (5 <= len(stripped_value) <= 100):
             raise ValueError(
                 'Название проекта должно содержать от 5 до 100 символов'
             )
-        return value.strip()
+        return stripped_value
 
     @validates('description')
     def validate_description(self, key, value):
         """Валидация описания проекта (не менее 10 символов)."""
-        if not value or len(value.strip()) < 10:
+        if value is None:
+            raise ValueError('Описание проекта не может быть пустым')
+
+        stripped_value = value.strip()
+
+        if not stripped_value:
+            raise ValueError('Описание проекта не может состоять из пробелов')
+
+        if len(stripped_value) < 10:
             raise ValueError(
                 'Описание проекта должно содержать не менее 10 символов'
             )
-        return value.strip()
+        return stripped_value
 
     @validates('full_amount')
     def validate_full_amount(self, key, value):
         """Валидация требуемой суммы (больше 0)."""
         if value <= 0:
             raise ValueError('Требуемая сумма должна быть больше 0')
+        return value
+
+    @validates('invested_amount')
+    def validate_invested_amount(self, key, value):
+        """Валидация инвестированной суммы (не может быть отрицательной)."""
+        if value < 0:
+            raise ValueError('Инвестированная сумма не может быть отрицательной')
         return value
 
     def __repr__(self):

@@ -12,6 +12,9 @@ class DonationCreate(DonationBase):
     comment: Optional[str] = Field(None, max_length=500)
     full_amount: int = Field(..., gt=0)
 
+    class Config:
+        extra = "forbid"  # Запрещаем лишние поля
+
     @validator('full_amount')
     def validate_full_amount(cls, value):
         """Валидация суммы пожертвования."""

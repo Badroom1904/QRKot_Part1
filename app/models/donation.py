@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import Column, DateTime, Integer, Text, Boolean
+from sqlalchemy.orm import validates
 
 from app.core.db import Base
 
@@ -17,6 +18,27 @@ class Donation(Base):
     fully_invested = Column(Boolean, default=False, nullable=False)
     create_date = Column(DateTime, default=datetime.now, nullable=False)
     close_date = Column(DateTime, nullable=True)
+
+    @validates('full_amount')
+    def validate_full_amount(self, key, value):
+        """Валидация суммы пожертвования (больше 0)."""
+        if value <= 0:
+            raise ValueError('Сумма пожертвования должна быть больше 0')
+        return value
+
+    @validates('invested_amount')
+    def validate_invested_amount(self, key, value):
+        """Валидация инвестированной суммы (не может быть отрицательной)."""
+        if value < 0:
+            raise ValueError('Инвестированная сумма не может быть отрицательной')
+        return value
+
+    @validates('comment')
+    def validate_comment(self, key, value):
+        """Валидация комментария (очистка от лишних пробелов)."""
+        if value is not None:
+            return value.strip()
+        return value
 
     def __repr__(self):
         return f'<Donation {self.id} amount={self.full_amount}>'
