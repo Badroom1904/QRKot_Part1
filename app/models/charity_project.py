@@ -29,7 +29,8 @@ class CharityProject(Base):
         stripped_value = value.strip()
 
         if not stripped_value:
-            raise ValueError('Название проекта не может состоять из пробелов')
+            raise ValueError(
+                'Название проекта не может состоять из пробелов')
 
         if not (5 <= len(stripped_value) <= 100):
             raise ValueError(
@@ -65,7 +66,8 @@ class CharityProject(Base):
     def validate_invested_amount(self, key, value):
         """Валидация инвестированной суммы (не может быть отрицательной)."""
         if value < 0:
-            raise ValueError('Инвестированная сумма не может быть отрицательной')
+            raise ValueError(
+                'Инвестированная сумма не может быть отрицательной')
         return value
 
     def __repr__(self):
