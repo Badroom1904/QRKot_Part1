@@ -30,7 +30,8 @@ class Donation(Base):
     def validate_invested_amount(self, key, value):
         """Валидация инвестированной суммы (не может быть отрицательной)."""
         if value < 0:
-            raise ValueError('Инвестированная сумма не может быть отрицательной')
+            raise ValueError(
+                'Инвестированная сумма не может быть отрицательной')
         return value
 
     @validates('comment')
